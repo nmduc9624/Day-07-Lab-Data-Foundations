@@ -130,12 +130,11 @@ Bộ tài liệu có nhiều Markdown heading, paragraph và các đoạn giải
 
 | Thành viên | Strategy | Retrieval Score (/10) | Điểm mạnh | Điểm yếu |
 |-----------|----------|----------------------|-----------|----------|
-| Tôi | RecursiveChunker | 6/10 | Giữ cấu trúc paragraph/section, chunk dễ đọc. | Nếu chunk quá ngắn có thể thiếu ngữ cảnh. |
-| Thành viên A | FixedSizeChunker | 5/10 | Đơn giản, chunk size ổn định, có overlap. | Dễ cắt ngang câu hoặc heading. |
-| Thành viên B | SentenceChunker | 6/10 | Giữ câu đầy đủ, dễ đọc. | Chunk có thể quá dài khi câu/paragraph dài. |
+| Tôi | RecursiveChunker | 8/10 | Giữ cấu trúc paragraph/section, chunk dễ đọc, phù hợp tài liệu Markdown. | Nếu chunk quá ngắn có thể thiếu ngữ cảnh ở một số câu hỏi tổng hợp. |
+| Thành viên còn lại | SentenceChunker | 7/10 | Giữ câu đầy đủ, ít cắt ngang ý, dễ đọc khi tài liệu có câu rõ ràng. | Chunk có thể quá dài khi câu/paragraph dài, đôi khi gom nhiều ý vào cùng một chunk. |
 
 **Strategy nào tốt nhất cho domain này? Tại sao?**  
-RecursiveChunker phù hợp nhất với bộ tài liệu này vì phần lớn tài liệu có cấu trúc Markdown/paragraph rõ ràng. Nó cân bằng giữa chunk coherence và chunk size, trong khi FixedSizeChunker dễ cắt ngang ý và SentenceChunker đôi khi tạo chunk quá dài.
+RecursiveChunker phù hợp hơn một chút với bộ tài liệu này vì phần lớn tài liệu có cấu trúc Markdown/paragraph rõ ràng. So với SentenceChunker, RecursiveChunker tạo chunk ngắn hơn và bám section tốt hơn, nên dễ đưa vào top-k context cho RAG. SentenceChunker vẫn tốt khi tài liệu có câu rõ ràng, nhưng đôi khi chunk dài và gom nhiều ý hơn.
 
 ---
 
