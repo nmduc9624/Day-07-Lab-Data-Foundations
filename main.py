@@ -29,6 +29,14 @@ SAMPLE_FILES = [
     "data/customer_support_playbook.txt",
     "data/chunking_experiment_report.md",
     "data/vi_retrieval_notes.md",
+    "data/rag_evaluation_metrics.md",
+    "data/metadata_design_for_rag.md",
+    "data/embedding_model_selection.md",
+    "data/reranking_notes.md",
+    "data/hybrid_search_overview.md",
+    "data/prompt_grounding_guidelines.md",
+    "data/rag_security_privacy.md",
+    "data/vi_rag_deployment_strategy.md",
 ]
 
 

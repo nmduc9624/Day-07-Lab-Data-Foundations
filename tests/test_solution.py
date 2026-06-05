@@ -10,8 +10,48 @@ No real API keys required — uses mock embeddings.
 
 import importlib
 import os
+import sys
 import unittest
+import atexit
 from pathlib import Path
+
+_TEST_PASS_COUNTER = {"passed": 0, "total": 0}
+_ORIGINAL_TESTCASE_RUN = unittest.TestCase.run
+
+
+def _result_counts(result):
+    return (
+        len(getattr(result, "failures", [])),
+        len(getattr(result, "errors", [])),
+        len(getattr(result, "skipped", [])),
+        len(getattr(result, "expectedFailures", [])),
+        len(getattr(result, "unexpectedSuccesses", [])),
+    )
+
+
+def _counting_testcase_run(self, result=None):
+    before = _result_counts(result) if result is not None else None
+    outcome = _ORIGINAL_TESTCASE_RUN(self, result)
+    active_result = result or outcome
+
+    if active_result is not None:
+        after = _result_counts(active_result)
+        _TEST_PASS_COUNTER["total"] += 1
+        if before is not None and after == before:
+            _TEST_PASS_COUNTER["passed"] += 1
+
+    return outcome
+
+
+def _print_pass_summary():
+    total = _TEST_PASS_COUNTER["total"]
+    if total:
+        passed = _TEST_PASS_COUNTER["passed"]
+        print(f"\nPassed tests: {passed}/{total}", file=sys.stderr)
+
+
+unittest.TestCase.run = _counting_testcase_run
+atexit.register(_print_pass_summary)
 
 DAY_DIR = Path(__file__).parent.parent
 PACKAGE_NAME = os.getenv("LAB_SOLUTION_PACKAGE", "src")

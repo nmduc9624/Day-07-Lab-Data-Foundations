@@ -1,7 +1,7 @@
 # Báo Cáo Lab 7: Embedding & Vector Store
 
-**Họ tên:** [Điền tên sinh viên]  
-**Nhóm:** [Điền tên nhóm]  
+**Họ tên:** Nguyễn Minh Đức  
+**Nhóm:** 2 đứa trái ngoài cùng  
 **Ngày:** 05/06/2026
 
 ---
